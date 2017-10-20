@@ -12,6 +12,7 @@
         <!--定义1对n的单向关联关系-->
         <set name="posts"
              inverse="false"
+             lazy="false"
              cascade="all">
 
             <key column="depart_id"/>

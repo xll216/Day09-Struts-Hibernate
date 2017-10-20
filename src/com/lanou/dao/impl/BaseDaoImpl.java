@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import java.lang.reflect.ParameterizedType;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -16,19 +16,22 @@ import java.util.Map;
  */
 public class BaseDaoImpl<T> implements BaseDao<T> {
     private static SessionFactory sessionFactory;
-    private Class<T> beanClass;
 
     static {
         sessionFactory = new Configuration().configure().buildSessionFactory();
     }
 
-    public BaseDaoImpl() {
+    @Override
+    public T findById(Serializable id, Class<T> tClass) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        // this ,在运行时表示的【当前运行类】。在编译时表示就是【当前类】
-        // 1 获得当前运行类的父类，父类具有泛型信息，
-        ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
-        // 2 获得实际参数
-        beanClass = (Class<T>) parameterizedType.getActualTypeArguments()[0];
+        //根据主键id查询某个对象
+        T t = session.get(tClass, id);
+
+        transaction.commit();
+
+        return t;
     }
 
     @Override

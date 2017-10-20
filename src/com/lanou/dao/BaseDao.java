@@ -1,5 +1,6 @@
 package com.lanou.dao;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,15 @@ import java.util.Map;
  * Created by 蓝鸥科技有限公司  www.lanou3g.com.
  */
 public interface BaseDao<T> {
+
+    /**
+     * 根据主键id查询某个对象
+     *
+     * @param id     要查询的主键id
+     * @param tClass 返回对象的类声明
+     **/
+    T findById(Serializable id, Class<T> tClass);
+
     /**
      * 查询所有，返回查询到的结果集合
      *

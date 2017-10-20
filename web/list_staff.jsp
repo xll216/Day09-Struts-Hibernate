@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by 蓝鸥科技有限公司  www.lanou3g.com.
 --%>
@@ -46,10 +47,10 @@
                     // 显示到 select 的 option 中
                     var selectE = document.getElementById("post");
 
-                    selectE.innerHTML = "<option value=''>----请--选--择----</option>";
+                    selectE.innerHTML = "<option value=''>----请选择----</option>";
                     for (var i = 0; i < jsonData.length; i++) {
                         var postObj = jsonData[i];
-                        selectE.innerHTML += "<option value='" + postObj.id + "'>" + postObj.name + "</option>";
+                        selectE.innerHTML += "<option value='" + postObj.id + "'>" + postObj.pname + "</option>";
                     }
                 }
             };
@@ -61,8 +62,12 @@
 <form method="post">
 
     部门：
-    <select id="department">
+    <select id="department" onchange="showPost(this)">
         <option value="-1">---请选择---</option>
+        <%--遍历部门集合--%>
+        <s:iterator value="#attr.departments" var="depart">
+            <option value="${depart.id}">${depart.dname}</option>
+        </s:iterator>
     </select>
     职务：
     <select id="post">

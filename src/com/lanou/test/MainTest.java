@@ -9,6 +9,8 @@ import com.lanou.dao.impl.StaffDaoImpl;
 import com.lanou.domain.Department;
 import com.lanou.domain.Post;
 import com.lanou.domain.Staff;
+import com.lanou.service.DepartmentService;
+import com.lanou.service.impl.DepartmentServiceImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -117,5 +119,26 @@ public class MainTest {
 
         Staff staff = staffDao.findSingle(hql, params);
         System.out.println(staff);
+    }
+
+    /**
+     * service层测试
+     **/
+    @Test
+    public void testService() {
+        DepartmentService departService = new DepartmentServiceImpl();
+//        List<Department> departments = departService.findAll();
+//
+//        for (Department depart : departments) {
+//            System.out.println("基础属性：" + depart);
+//
+//            for (Post post : depart.getPosts()) {
+//                System.out.println("职务：" + post);
+//            }
+//        }
+
+        String hql = "from Department";
+
+
     }
 }
